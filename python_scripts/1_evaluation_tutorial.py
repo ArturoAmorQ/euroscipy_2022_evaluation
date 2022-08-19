@@ -114,6 +114,14 @@ print(f"LR+ on the test set: {pos_LR:.3f}") # higher is better
 print(f"LR- on the test set: {neg_LR:.3f}") #  lower is better
 
 # %%
+# <div class="admonition note alert alert-info">
+# <p class="first admonition-title" style="font-weight: bold;">Caution</p>
+# <p class="last">Please notice that if you want to use the
+# `metrics.class_likelihood_ratios` as of today you will need to use the dev
+# version of scikit-learn. This metric will be implemented in version 1.2.0.
+# </p>
+# </div>
+#
 # Extrapolating between populations
 # ---------------------------------
 #
