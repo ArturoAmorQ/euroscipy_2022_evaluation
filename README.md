@@ -1,6 +1,6 @@
 # EuroSciPy 2022 - Evaluating your ML models tutorial
 
-Some intro [slides](https://docs.google.com/presentation/d/16AEtPVY4MVnBUsZ8CVPsnpvK5uo9HP3oJZ1Ds3AUBoA/edit?usp=sharing)
+Some intro [slides](https://www.slideshare.net/GaelVaroquaux/evaluating-machine-learning-models-and-their-diagnostic-value)
 
 ## Follow the tutorial online
 
