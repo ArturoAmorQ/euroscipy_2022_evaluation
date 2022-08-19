@@ -1,0 +1,8 @@
+name: evaluation-tutorial
+
+dependencies:
+  - python
+  - pandas
+  - jupyter
+  - pip:
+    - git+https://github.com/scikit-learn/scikit-learn.git
