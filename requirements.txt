@@ -1,0 +1,3 @@
+-e https://github.com/scikit-learn/scikit-learn.git@v1.1.2#egg=scikit-learn
+pandas
+jupyter
