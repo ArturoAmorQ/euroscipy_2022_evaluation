@@ -1,4 +1,4 @@
-# %%
+# %% [markdown]
 # Evaluation of different probability thresholds
 # ----------------------------------------------
 #
@@ -9,6 +9,7 @@
 # threshold of 0.5 probability in a binary classification problem. Let's build a
 # toy dataset to illustrate this.
 
+# %%
 import numpy as np
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
@@ -27,11 +28,12 @@ X_train, X_test, y_train, y_test = train_test_split(
     X, y, stratify=y, random_state=0, test_size=0.02
 )
 
-# %%
+# %% [markdown]
 # We can quickly check the predicted probabilities to belong to either class
 # using a `LogisticRegression`. To ease the visualization we select a subset
 # of `n_plot` samples.
 
+# %%
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
@@ -46,13 +48,14 @@ proba_predicted = pd.DataFrame(
 ).round(decimals=1)
 proba_predicted[:n_plot]
 
-# %%
+# %% [markdown]
 # Probabilites sum to 100%. In the binary case it suffices to retain the
 # probability of belonging to the positive class, here shown as an annotation in
 # the `DecisionBoundaryDisplay`. Notice that setting
 # `response_method="predict_proba"` shows the level curves of the 2D sigmoid
 # (logistic curve).
 
+# %%
 import matplotlib.pyplot as plt
 from sklearn.inspection import DecisionBoundaryDisplay
 
@@ -72,7 +75,7 @@ disp.ax_.legend(*scatter.legend_elements())
 for i, proba in enumerate(proba_predicted[:n_plot][1]):
     disp.ax_.annotate(proba, (X_test[i, 0], X_test[i, 1]), fontsize="large")
 
-# %%
+# %% [markdown]
 # The default decision threshold (0.5) might not be the best threshold that
 # leads to optimal generalization performance of our classifier. One can vary
 # the decision threshold, and therefore the underlying prediction, and compute
@@ -81,6 +84,7 @@ for i, proba in enumerate(proba_predicted[:n_plot][1]):
 # corresponds to a specific decision threshold. Let’s start by computing the
 # precision-recall curve.
 
+# %%
 from sklearn.metrics import PrecisionRecallDisplay
 from sklearn.dummy import DummyClassifier
 
@@ -103,13 +107,14 @@ disp = PrecisionRecallDisplay.from_estimator(
 plt.legend(loc="lower left")
 _ = disp.ax_.set_title("Precision-recall curve")
 
-# %%
+# %% [markdown]
 # Notice that the `DummyClassifier` is a way to define chance level, and
 # its average precision coincides with the prevalence of the positive class:
 
+# %%
 print(f"Prevalence of the positive class: {y.mean():.2f}")
 
-# %%
+# %% [markdown]
 # On this curve, each blue cross corresponds to a level of probability which we
 # used as a decision threshold. We can see that, by varying this decision
 # threshold, we get different precision vs. recall values.
@@ -129,6 +134,7 @@ print(f"Prevalence of the positive class: {y.mean():.2f}")
 # and specificity are generally plotted as a curve called the Receiver Operating
 # Characteristic (ROC) curve. Below is such a curve:
 
+# %%
 from sklearn.metrics import RocCurveDisplay
 
 
@@ -139,7 +145,7 @@ disp = RocCurveDisplay.from_estimator(
 plt.legend()
 _ = disp.ax_.set_title("ROC AUC curve for the ")
 
-# %%
+# %% [markdown]
 # This curve was built using the same principle as the precision-recall curve:
 # we vary the probability threshold for determining "hard" prediction and
 # compute the metrics. As with the precision-recall curve, we can compute the
@@ -157,6 +163,7 @@ _ = disp.ax_.set_title("ROC AUC curve for the ")
 # classification problem, but in this case we will only retain two of such
 # classes.
 
+# %%
 X, y = datasets.fetch_covtype(return_X_y=True, as_frame=True)
 mask = np.isin(y, [1, 2])  # Select two classes
 X = X[mask]
@@ -174,10 +181,11 @@ print(
     f"prevalence of the majority class: {max(y.value_counts())/y.value_counts().sum():.2f}"
 )
 
-# %%
+# %% [markdown]
 # In this case we also explore some other models to give a visual intuition of what
 # is a good PR-AUC and ROC-AUC.
 
+ # %%
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import GaussianNB
 
@@ -192,10 +200,11 @@ for name, clf in classifiers.items():
     clf.fit(X_train, y_train)
 
 
-# %%
+# %% [markdown]
 # The precision recall curve can be plotted using the `.predict_proba` for linear
 # models or the `.decision_function` in other cases.
 
+# %%
 from sklearn.metrics import precision_recall_curve, average_precision_score
 
 fig = plt.figure()
@@ -233,10 +242,11 @@ plt.show()
 print(f"Notice that the class imbalance {np.mean(y_reserve - 1):.4f}\n"
       f"equals the chance AUC {auc:.4f}")
 
-# %%
+# %% [markdown]
 # We can evaluate the ROC curves of the same set of models using the Forest
 # Covertypes dataset
 
+# %%
 from sklearn.metrics import roc_curve, roc_auc_score
 
 fig = plt.figure()
