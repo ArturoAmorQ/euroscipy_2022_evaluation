@@ -3,6 +3,9 @@ name: evaluation-tutorial
 dependencies:
   - python
   - pandas
+  - seaborn
   - jupyter
+  - pip
   - pip:
-    - git+https://github.com/scikit-learn/scikit-learn.git
+    - --pre --extra-index https://pypi.anaconda.org/scipy-wheels-nightly/simple
+    - scikit-learn

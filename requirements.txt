@@ -1,3 +1,8 @@
--e https://github.com/scikit-learn/scikit-learn.git#egg=scikit-learn
-pandas
+--pre --extra-index https://pypi.anaconda.org/scipy-wheels-nightly/simple
+numpy==1.23.*
+scipy==1.9.*
+pandas==1.4.*
+matplotlib==3.5.*
 jupyter
+seaborn
+scikit-learn
