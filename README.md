@@ -4,7 +4,7 @@ Some intro [slides](https://www.slideshare.net/GaelVaroquaux/evaluating-machine-
 
 ## Follow the tutorial online
 
-- Launch an online notebook environment using: Binder.
+- Launch an online notebook environment using: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ArturoAmorQ/euscipy_2022/HEAD).
 
 You need an internet connection but you will not have to install any package
 locally.
@@ -19,7 +19,8 @@ The tutorials will require the following packages:
 * jupyter
 * pandas
 * matplotlib
-* scikit-learn ! Dev version
+* seaborn
+* scikit-learn ! **Dev version**
 
 ### Local install
 
@@ -31,7 +32,7 @@ You can install the packages using `pip`:
 $ pip install -r requirements.txt
 ```
 
-You can create an `sklearn-tutorial` conda environment executing:
+You can create an `evaluation-tutorial` conda environment executing:
 
 ```
 $ conda env create -f environment.yml
@@ -40,7 +41,7 @@ $ conda env create -f environment.yml
 and later activate the environment:
 
 ```
-$ conda activate sklearn-tutorial
+$ conda activate evaluation-tutorial
 ```
 
 You might also only update your current environment using:
