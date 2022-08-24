@@ -4,7 +4,11 @@ Some intro [slides](https://www.slideshare.net/GaelVaroquaux/evaluating-machine-
 
 ## Follow the tutorial online
 
-- Launch an online notebook environment using: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ArturoAmorQ/euscipy_2022/HEAD).
+Launch an online notebook environment using [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ArturoAmorQ/euscipy_2022/HEAD).
+
+- [1_evaluation_tutorial.ipynb](https://mybinder.org/v2/gh/ArturoAmorQ/euroscipy_2022_evaluation/HEAD?labpath=notebooks%2F1_evaluation_tutorial.ipynb)
+- [2_roc_pr_curves_tutorial.ipynb](https://mybinder.org/v2/gh/ArturoAmorQ/euroscipy_2022_evaluation/HEAD?labpath=notebooks%2F2_roc_pr_curves_tutorial.ipynb)
+- [3_uncertainty_in_metrics_tutorial.ipynb ](https://mybinder.org/v2/gh/ArturoAmorQ/euroscipy_2022_evaluation/HEAD?labpath=notebooks%2F3_uncertainty_in_metrics_tutorial.ipynb)
 
 You need an internet connection but you will not have to install any package
 locally.
