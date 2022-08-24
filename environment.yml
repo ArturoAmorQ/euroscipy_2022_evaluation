@@ -1,5 +1,9 @@
 name: evaluation-tutorial
 
+channels:
+  - conda-forge
+  - defaults
+
 dependencies:
   - python
   - pandas
