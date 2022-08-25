@@ -1,6 +1,6 @@
 # EuroSciPy 2022 - Evaluating your ML models tutorial
 
-Some intro [slides](https://www.slideshare.net/GaelVaroquaux/evaluating-machine-learning-models-and-their-diagnostic-value)
+Follow the intro slides [here](https://www.slideshare.net/GaelVaroquaux/evaluating-machine-learning-models-and-their-diagnostic-value).
 
 ## Follow the tutorial online
 
@@ -24,7 +24,7 @@ The tutorials will require the following packages:
 * pandas
 * matplotlib
 * seaborn
-* scikit-learn ! **Dev version**
+* scikit-learn ! **version >= 1.2.dev0** (still in development as of august 2022)
 
 ### Local install
 
