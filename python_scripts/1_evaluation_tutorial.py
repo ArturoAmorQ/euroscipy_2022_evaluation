@@ -76,15 +76,25 @@ _ = disp.ax_.legend(*scatter.legend_elements())
 # %% [markdown]
 # The most widely used summary metric is arguably accuracy. Its main advantage
 # is a natural interpretation: the proportion of correctly classified samples.
-# However, it is misleading when the data is imbalanced. Our model performs
-# better than a trivial majority classifier in only 3 of the samples.
 
 # %%
 from sklearn import metrics
 
 y_pred = estimator.predict(X_test)
 accuracy = metrics.accuracy_score(y_test, y_pred)
-print(f"Accuracy on the test set: {accuracy:.2f}")
+print(f"Accuracy on the test set: {accuracy:.3f}")
+
+# %% [markdown]
+# However, it is misleading when the data is imbalanced. Our model performs
+# better than a trivial majority classifier in only 3 of the samples.
+
+# %%
+from sklearn.dummy import DummyClassifier
+
+dummy = DummyClassifier(strategy="most_frequent").fit(X_train, y_train)
+y_dummy = estimator.predict(X_test)
+accuracy_dummy = metrics.accuracy_score(y_test, y_dummy)
+print(f"Accuracy if Diabetes did not exist: {accuracy_dummy:.3f}")
 
 # %% [markdown]
 # Some of the other metrics are better at describing the flaws of our model:
