@@ -34,7 +34,9 @@ print(f"Percentage of samples in the positive class: {100*prevalence:.2f}%")
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=1
+)
 classifier = LogisticRegression().fit(X_train, y_train)
 classifier.score(X_test, y_test)
 
@@ -59,10 +61,12 @@ classifier.score(X_test, y_test)
 # the training and testing sets are different for each evaluation.
 
 # %%
-from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import cross_val_score, ShuffleSplit
 
 classifier = LogisticRegression()
-scores = cross_val_score(classifier, X, y, cv=5)
+cv = ShuffleSplit(n_splits=250, test_size=0.2)
+
+scores = cross_val_score(classifier, X, y, cv=cv)
 print(
     "The mean cross-validation accuracy is: "
     f"{scores.mean():.2f} ± {scores.std():.2f}."
@@ -77,8 +81,8 @@ print(
 # %%
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy import stats
 import seaborn as sns
+from scipy import stats
 
 
 def plot_error_distrib(classifier, X, y, cv=5):
@@ -96,22 +100,12 @@ def plot_error_distrib(classifier, X, y, cv=5):
         label="binomial distribution",
     )
     sns.histplot(scores, stat="density", label="empirical distribution")
+    plt.xlim(0, 1)
     plt.title("Accuracy: " f"{scores.mean():.2f} ± {scores.std():.2f}.")
     plt.legend()
     plt.show()
 
 
-plot_error_distrib(classifier, X, y, cv=5)
-
-# %% [markdown]
-# This still does not seem to be a binomial distribution. There are not enough
-# evaluations, but the `KFold` cross-validation is intrinsically finite. Let's
-# try another method for cross-validation:
-
-# %%
-from sklearn.model_selection import ShuffleSplit
-
-cv = ShuffleSplit(n_splits=200, test_size=0.2)
 plot_error_distrib(classifier, X, y, cv=cv)
 
 # %% [markdown]
@@ -159,7 +153,7 @@ print(
 )
 
 # %% [markdown]
-# Indeed, the SEM goes to zero as 1/sqrt{n_splits}. Wraping-up:
+# Indeed, the SEM goes to zero as 1/sqrt{`n_splits`}. Wraping-up:
 # - the more data the better;
 # - the more splits, the more descriptive of the variance is the binomial
 #   distribution, but keep in mind that more splits consume more computing
@@ -173,7 +167,7 @@ print(
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.inspection import DecisionBoundaryDisplay
 
-common_params = {
+diabetes_params = {
     "n_samples": 10_000,
     "n_features": 2,
     "n_informative": 2,
@@ -183,7 +177,7 @@ common_params = {
     "scale": [10, 25],
     "random_state": 0,
 }
-X, y = make_classification(**common_params, weights=[0.55, 0.45])
+X, y = make_classification(**diabetes_params, weights=[0.55, 0.45])
 
 X_train, X_plot, y_train, y_plot = train_test_split(
     X, y, stratify=y, test_size=0.1, random_state=0
@@ -217,7 +211,6 @@ _ = disp.ax_.legend(*scatter.legend_elements())
 
 # %%
 from collections import defaultdict
-from sklearn import metrics
 import pandas as pd
 
 cv = ShuffleSplit(n_splits=50, test_size=0.2)
