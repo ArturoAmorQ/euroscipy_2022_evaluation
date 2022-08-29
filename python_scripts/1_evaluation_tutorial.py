@@ -11,10 +11,12 @@
 # To fix ideas, let's use a medical analogy and think about diabetes. We only
 # use two features -age and blood sugar level-, to keep the example as simple as
 # possible. We use `make_classification` to simulate the distribution of the
-# disease and to ensure the data-generating process is always the same. We set
-# the `weights=[0.99, 0.01]` to obtain a prevalence of around 1% which,
-# according to the World Bank, is the case for the country with the lowest
-# diabetes prevalence in 2022 (Benin).
+# disease and to ensure **the data-generating process is always the same**. We
+# set the `weights=[0.99, 0.01]` to obtain a prevalence of around 1% which,
+# according to [The World
+# Bank](https://data.worldbank.org/indicator/SH.STA.DIAB.ZS?most_recent_value_desc=false),
+# is the case for the country with the lowest diabetes prevalence in 2022
+# (Benin).
 # 
 # In practice, the ideas presented here can be applied in settings where the
 # data available to learn and evaluate a classifier has nearly balanced classes,
@@ -52,28 +54,6 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, random_sta
 estimator = DecisionTreeClassifier(max_depth=2, random_state=0).fit(X_train, y_train)
 
 # %% [markdown]
-# We now show the decision boundary learned by the estimator. Notice that we
-# only plot an stratified subset of the original data.
-
-# %%
-import matplotlib.pyplot as plt
-from sklearn.inspection import DecisionBoundaryDisplay
-
-fig, ax = plt.subplots()
-disp = DecisionBoundaryDisplay.from_estimator(
-    estimator,
-    X_test,
-    response_method="predict",
-    alpha=0.5,
-    xlabel="age (years)",
-    ylabel="blood sugar level (mg/dL)",
-    ax=ax,
-)
-scatter = disp.ax_.scatter(X_test[:, 0], X_test[:, 1], c=y_test, edgecolor="k")
-disp.ax_.set_title(f"Diabetes test with prevalence = {y.mean():.2f}")
-_ = disp.ax_.legend(*scatter.legend_elements())
-
-# %% [markdown]
 # The most widely used summary metric is arguably accuracy. Its main advantage
 # is a natural interpretation: the proportion of correctly classified samples.
 
@@ -86,7 +66,7 @@ print(f"Accuracy on the test set: {accuracy:.3f}")
 
 # %% [markdown]
 # However, it is misleading when the data is imbalanced. Our model performs
-# better than a trivial majority classifier in only 3 of the samples.
+# as well as a trivial majority classifier.
 
 # %%
 from sklearn.dummy import DummyClassifier
@@ -134,7 +114,7 @@ print(f"LR- on the test set: {neg_LR:.3f}") #  lower is better
 # <div class="admonition note alert alert-info">
 # <p class="first admonition-title" style="font-weight: bold;">Caution</p>
 # <p class="last">Please notice that if you want to use the
-# `metrics.class_likelihood_ratios` as of today you will need to use the dev
+# `metrics.class_likelihood_ratios` as of today, you require the 1.2.dev0
 # version of scikit-learn. This metric will be implemented in version 1.2.0.
 # </p>
 # </div>
@@ -149,28 +129,8 @@ print(f"LR- on the test set: {neg_LR:.3f}") #  lower is better
 # According to the World Bank, the diabetes prevalence in the French Polynesia
 # in 2022 is above 25%. Let's now evaluate our previously trained model on a
 # **different population** with such prevalence and **the same data-generating
-# process**.
-
-# %%
-X, y = make_classification(**common_params, weights=[0.75, 0.25])
-X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, random_state=0)
-
-fig, ax = plt.subplots()
-disp = DecisionBoundaryDisplay.from_estimator(
-    estimator,
-    X_test,
-    response_method="predict",
-    alpha=0.5,
-    xlabel="age (years)",
-    ylabel="blood sugar level (mg/dL)",
-    ax=ax,
-)
-scatter = disp.ax_.scatter(X_test[:, 0], X_test[:, 1], c=y_test, edgecolor="k")
-disp.ax_.set_title(f"Diabetes test with prevalence = {y.mean():.2f}")
-_ = disp.ax_.legend(*scatter.legend_elements())
-
-# %% [markdown]
-# We compute the same metrics using a test set with the new prevalence:
+# process**. We then compute the same metrics using a test set with the new
+# prevalence:
 
 # %%
 y_pred = estimator.predict(X_test)
@@ -265,3 +225,5 @@ print(f"Observed post-test probability: {posttest_prob:.3f}")
 #
 # Can you imagine what would happen if the model is trained on nearly balanced classes
 # and then extrapolated to other scenarios?
+
+# %%
