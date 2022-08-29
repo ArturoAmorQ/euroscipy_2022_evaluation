@@ -1,14 +1,14 @@
 # EuroSciPy 2022 - Evaluating your ML models tutorial
 
-Follow the intro slides [here](https://www.slideshare.net/GaelVaroquaux/evaluating-machine-learning-models-and-their-diagnostic-value).
+Follow the intro slides [here](https://github.com/ArturoAmorQ/euroscipy_2022_evaluation/blob/main/slides.pdf).
 
 ## Follow the tutorial online
 
 Launch an online notebook environment using [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ArturoAmorQ/euroscipy_2022_evaluation/HEAD)
 
-- [1_evaluation_tutorial.ipynb](https://github.com/ArturoAmorQ/euroscipy_2022_evaluation/blob/main/notebooks/1_evaluation_tutorial.ipynb) - [Run on binder](https://mybinder.org/v2/gh/ArturoAmorQ/euroscipy_2022_evaluation/HEAD?labpath=notebooks%2F1_evaluation_tutorial.ipynb)
-- [2_roc_pr_curves_tutorial.ipynb](https://github.com/ArturoAmorQ/euroscipy_2022_evaluation/blob/main/notebooks/2_roc_pr_curves_tutorial.ipynb) [Run on binder](https://mybinder.org/v2/gh/ArturoAmorQ/euroscipy_2022_evaluation/HEAD?labpath=notebooks%2F2_roc_pr_curves_tutorial.ipynb)
-- [3_uncertainty_in_metrics_tutorial.ipynb](https://github.com/ArturoAmorQ/euroscipy_2022_evaluation/blob/main/notebooks/3_uncertainty_in_metrics_tutorial.ipynb) [Run on binder](https://mybinder.org/v2/gh/ArturoAmorQ/euroscipy_2022_evaluation/HEAD?labpath=notebooks%2F3_uncertainty_in_metrics_tutorial.ipynb)
+- [1_evaluation_tutorial.ipynb](https://mybinder.org/v2/gh/ArturoAmorQ/euroscipy_2022_evaluation/HEAD?labpath=notebooks%2F1_evaluation_tutorial.ipynb)
+- [2_roc_pr_curves_tutorial.ipynb](https://mybinder.org/v2/gh/ArturoAmorQ/euroscipy_2022_evaluation/HEAD?labpath=notebooks%2F2_roc_pr_curves_tutorial.ipynb)
+- [3_uncertainty_in_metrics_tutorial.ipynb ](https://mybinder.org/v2/gh/ArturoAmorQ/euroscipy_2022_evaluation/HEAD?labpath=notebooks%2F3_uncertainty_in_metrics_tutorial.ipynb)
 
 You need an internet connection but you will not have to install any package
 locally.
