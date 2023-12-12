@@ -1,15 +1,10 @@
 name: evaluation-tutorial
 
-channels:
-  - conda-forge
-  - defaults
-
 dependencies:
   - python
+  - scikit-learn
   - pandas
   - seaborn
   - jupyter
   - pip
-  - pip:
-    - --pre --extra-index https://pypi.anaconda.org/scipy-wheels-nightly/simple
-    - scikit-learn
+    

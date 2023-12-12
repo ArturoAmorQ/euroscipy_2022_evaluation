@@ -1,8 +1,7 @@
---pre --extra-index https://pypi.anaconda.org/scipy-wheels-nightly/simple
-numpy==1.23.*
-scipy==1.9.*
-pandas==1.4.*
-matplotlib==3.5.*
+numpy==1.26.*
+scipy==1.11.*
+pandas==2.1.*
+matplotlib==3.7.*
 jupyter
 seaborn
-scikit-learn
+scikit-learn==1.3.*
