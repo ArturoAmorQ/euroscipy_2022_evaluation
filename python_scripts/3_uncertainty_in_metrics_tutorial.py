@@ -207,7 +207,7 @@ _ = disp.ax_.legend(*scatter.legend_elements())
 # likelihood ratios extrapolate through populations of different prevalence for
 # a **fixed model**.
 #
-# Let's compute all the metrics and assez their variability in this case
+# Let's compute all the metrics and assez their variability in this case:
 
 # %%
 from collections import defaultdict

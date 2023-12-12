@@ -10,7 +10,7 @@
 # toy dataset to illustrate this.
 
 # %%
-from sklearn import datasets
+from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split
 
 common_params = {
@@ -21,8 +21,8 @@ common_params = {
     "n_classes": 2,  # binary classification
     "class_sep": 0.5,
     "random_state": 0,
-    }
-X, y = datasets.make_classification(**common_params, weights=[0.6, 0.4])
+}
+X, y = make_classification(**common_params, weights=[0.6, 0.4])
 
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, stratify=y, random_state=0, test_size=0.02
@@ -55,6 +55,7 @@ proba_predicted[:n_plot]
 
 # %%
 import matplotlib.pyplot as plt
+from matplotlib.colors import ListedColormap
 from sklearn.inspection import DecisionBoundaryDisplay
 
 fig, ax = plt.subplots()
@@ -62,11 +63,27 @@ disp = DecisionBoundaryDisplay.from_estimator(
     classifier,
     X_test,
     response_method="predict_proba",
+    cmap="RdBu",
     alpha=0.5,
+    vmin=0,
+    vmax=1,
+    ax=ax,
+)
+DecisionBoundaryDisplay.from_estimator(
+    classifier,
+    X_test,
+    response_method="predict_proba",
+    plot_method="contour",
+    alpha=0.2,
+    levels=[0.5],  # 0.5 probability contour line
+    linestyles="--",
+    linewidths=2,
     ax=ax,
 )
 scatter = disp.ax_.scatter(
-    X_test[:n_plot, 0], X_test[:n_plot, 1], c=y_test[:n_plot], edgecolor="k"
+    X_test[:n_plot, 0], X_test[:n_plot, 1], c=y_test[:n_plot], 
+    cmap=ListedColormap(["tab:red", "tab:blue"]),
+    edgecolor="k"
 )
 disp.ax_.legend(*scatter.legend_elements(), title="True class", loc="lower right")
 for i, proba in enumerate(proba_predicted[:n_plot][1]):
@@ -147,13 +164,11 @@ classifiers = {
 }
 
 fig = plt.figure()
-ax = plt.axes([0.18, 0.15, 0.78, 0.78])
+ax = plt.axes([0.08, 0.15, 0.78, 0.78])
 
 for name, clf in classifiers.items():
     clf.fit(X_train, y_train)
-    disp = RocCurveDisplay.from_estimator(
-        clf, X_test, y_test, name=name, ax=ax
-    )
+    disp = RocCurveDisplay.from_estimator(clf, X_test, y_test, name=name, ax=ax)
 plt.xlabel("False positive rate")
 plt.ylabel("True positive rate                           ")
 plt.text(
@@ -191,21 +206,19 @@ plt.show()
 from sklearn.metrics import PrecisionRecallDisplay
 
 fig = plt.figure()
-ax = plt.axes([0.18, 0.15, 0.78, 0.78])
+ax = plt.axes([0.08, 0.15, 0.78, 0.78])
 
 for name, clf in classifiers.items():
     clf.fit(X_train, y_train)
-    disp = PrecisionRecallDisplay.from_estimator(
-        clf, X_test, y_test, name=name, ax=ax
-    )
+    disp = PrecisionRecallDisplay.from_estimator(clf, X_test, y_test, name=name, ax=ax)
 plt.xlabel("Recall                  ")
-plt.text(0.56, 0.0485, "= TPR or sensitivity", transform=fig.transFigure, size=7)
+plt.text(0.45, 0.067, "= TPR or sensitivity", transform=fig.transFigure, size=7)
 plt.ylabel("Precision         ")
 plt.text(0.1, 0.6, "= PPV", transform=fig.transFigure, size=7, rotation="vertical")
 plt.xlim(0, 1)
 plt.ylim(0, 1)
 plt.legend(loc="lower right")
-plt.title("Precision-recall curve for LogisticRegression")
+plt.title("Precision-recall curve for several models")
 plt.show()
 
 # %% [markdown]
@@ -227,28 +240,26 @@ print(f"Prevalence of the positive class: {prevalence:.3f}")
 # Let's see the effect of adding umbalance between classes in our set of models:
 
 # %%
-X, y = datasets.make_classification(**common_params, weights=[0.83, 0.17])
+X, y = make_classification(**common_params, weights=[0.83, 0.17])
 
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, stratify=y, random_state=0, test_size=0.02
 )
 
 fig = plt.figure()
-ax = plt.axes([0.18, 0.15, 0.78, 0.78])
+ax = plt.axes([0.08, 0.15, 0.78, 0.78])
 
 for name, clf in classifiers.items():
     clf.fit(X_train, y_train)
-    disp = PrecisionRecallDisplay.from_estimator(
-        clf, X_test, y_test, name=name, ax=ax
-    )
+    disp = PrecisionRecallDisplay.from_estimator(clf, X_test, y_test, name=name, ax=ax)
 plt.xlabel("Recall                  ")
-plt.text(0.56, 0.0485, "= TPR or sensitivity", transform=fig.transFigure, size=7)
+plt.text(0.45, 0.067, "= TPR or sensitivity", transform=fig.transFigure, size=7)
 plt.ylabel("Precision         ")
 plt.text(0.1, 0.6, "= PPV", transform=fig.transFigure, size=7, rotation="vertical")
 plt.xlim(0, 1)
 plt.ylim(0, 1)
 plt.legend(loc="upper right")
-plt.title("Precision-recall curve for LogisticRegression")
+plt.title("Precision-recall curve for several models\nw. imbalanced data")
 plt.show()
 
 # %% [markdown]
